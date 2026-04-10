@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>圊隊家教請款訊息產生器</title>
+<title>團隊家教請款訊息產生器</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
@@ -171,7 +171,7 @@ h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
   <!-- Grouping section -->
   <div class="grouping-section" id="groupingSection">
     <h3>訊息分組（家庭群組）</h3>
-    <p class="grouping-hint">拖曳學生到家庭群組，同一群組會產出合併帳�[。未分組的學生各自獨立產出。</p>
+    <p class="grouping-hint">拖曳學生到家庭群組，同一群組會產出合併帳�Z。未分組的學生各自獨立產出。</p>
     <div id="familyLanes"></div>
     <div class="ungrouped-lane" id="ungroupedLane">
       <div class="ungrouped-label">未分組</div>
@@ -413,6 +413,7 @@ function renderStudentCards() {
         <input type="checkbox" ${flags[s.name] ? 'checked' : ''} onchange="savePersonalFlag('${escapeAttr(s.name)}', this.checked)">
         個人也有
       </label>
+      <button class="btn-generate-one" onclick="generateSingle(${i})" style="padding:3px 10px;font-size:0.78em;">產出</button>
     </div>
   `).join('');
 }
@@ -442,7 +443,21 @@ function loadFamilies() {
 
 function getUngrouped() {
   const grouped = new Set(families.flat());
-  return allStudents.map((_, i) => i).filter(i => !grouped.has(i));
+  const ungrouped = allStudents.map((_, i) => i).filter(i => !grouped.has(i));
+  // Sort: English names alphabetically, Chinese names by stroke count (locale zh-Hant-TW with pinyin fallback)
+  ungrouped.sort((a, b) => {
+    const na = allStudents[a].name;
+    const nb = allStudents[b].name;
+    const isEngA = /^[A-Za-z]/.test(na);
+    const isEngB = /^[A-Za-z]/.test(nb);
+    // English names come first, then Chinese
+    if (isEngA && !isEngB) return -1;
+    if (!isEngA && isEngB) return 1;
+    if (isEngA && isEngB) return na.localeCompare(nb, 'en');
+    // Chinese: sort by stroke count using zh-Hant locale with stroke collation
+    return na.localeCompare(nb, 'zh-Hant-TW', { collation: 'stroke' });
+  });
+  return ungrouped;
 }
 
 function renderGroupingUI() {
@@ -575,6 +590,7 @@ function buildSingleMessage(idx) {
 function buildFamilyMessage(studentIndices) {
   const title = document.getElementById('titleSelect').value;
   const greeting = document.getElementById('greetingSelect').value;
+  const flags = loadPersonalFlags();
   const first = allStudents[studentIndices[0]];
   if (!first) return null;
 
@@ -586,7 +602,8 @@ function buildFamilyMessage(studentIndices) {
     const s = allStudents[idx];
     if (!s) return;
     names.push(s.name);
-    msg += `\n【${s.name}】\n`;
+    const personalNote = flags[s.name] ? '（個人也有）' : '';
+    msg += `\n【${s.name}】${personalNote}\n`;
     s.entries.forEach(e => { msg += `${e.date}：${formatNum(e.hours)}hr\n`; });
     msg += `小計：${formatNum(s.totalHours)}hr x ${s.rate} = ${s.totalFee}元\n`;
     grandTotal += s.totalFee;
@@ -612,7 +629,7 @@ function generateSingle(idx) {
 
 function generateFamily(fi) {
   const group = families[fi];
-  if (!group || group.length === 0) { showToast('此群組沒有學生'); return; }
+  if (!group || group.length === 0) { showToast('此群組氒有學生'); return; }
 
   let result;
   if (group.length === 1) {
@@ -670,7 +687,7 @@ function renderAllMessages() {
         <div class="msg-text">${escapeHtml(m.msg)}</div>
         <div style="display:flex;gap:8px;margin-top:10px;">
           <button class="copy-btn" onclick="copySingle(this, '${key}')">複製此訊息</button>
-          <button class="delete-btn" onclick="deleteCard('${key}')">刪除�button>
+          <button class="delete-btn" onclick="deleteCard('${key}')">刪除</button>
         </div>
       </div>
     </div>`;
