@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
@@ -171,7 +171,7 @@ h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
   <!-- Grouping section -->
   <div class="grouping-section" id="groupingSection">
     <h3>訊息分組（家庭群組）</h3>
-    <p class="grouping-hint">拖曳學生到家庭群組，同一群組會產出合併帳�Z。未分組的學生各自獨立產出。</p>
+    <p class="grouping-hint">拖曳學生到家庭群組，同一群組會產出合併帳單。未分組的學生各自獨立產出。</p>
     <div id="familyLanes"></div>
     <div class="ungrouped-lane" id="ungroupedLane">
       <div class="ungrouped-label">未分組</div>
@@ -234,7 +234,7 @@ function setupFirebaseSync() {
   db.ref('.info/connected').on('value', snap => {
     if (snap.val()) {
       dot.className = 'sync-dot green';
-      label.textContent = '已同步 — 全台電腦的設定會即時更新';
+      label.textContent = '已同步 — 兩台電腦的設定會即時更新';
     } else {
       dot.className = 'sync-dot red';
       label.textContent = '同步連線失敗（設定僅存在本機）';
@@ -312,7 +312,7 @@ function parseStudents() {
   for (let r = 0; r < Math.min(data.length, 15); r++) {
     if (data[r] && data[r][0] && String(data[r][0]).trim() === '日期') { dateHeaderRow = r; break; }
   }
-  if (dateHeaderRow === -1) { showToast('找不到日期列，請確認表格格式'); return; }
+  if (dateHeaderRow === -1) { showToast('找不到日期列，請碼認表格格式'); return; }
 
   const dateStartRow = dateHeaderRow + 1;
   let rateRow = -1;
@@ -323,6 +323,7 @@ function parseStudents() {
   if (rateRow === -1) rateRow = 5;
 
   const studentRow = 1;
+  const subjectRow = 3; // 第4列（0-indexed = 3）為科目。如有同名學生，會在名字後加上科目以區分。
   let month = '';
   for (let r = dateStartRow; r < data.length; r++) {
     const cell = data[r] ? data[r][0] : null;
@@ -346,6 +347,7 @@ function parseStudents() {
     if (!studentName || !rate || isNaN(Number(rate))) continue;
 
     const cleanName = String(studentName).replace(/\n/g, '、');
+    const subject = data[subjectRow] ? String(data[subjectRow][col] || '').trim() : '';
     const numRate = Number(rate);
 
     let entries = [];
@@ -367,6 +369,7 @@ function parseStudents() {
 
     allStudents.push({
       name: cleanName,
+      subject: subject,
       rate: numRate,
       entries: entries.sort((a, b) => a.dateObj - b.dateObj),
       totalHours,
@@ -375,6 +378,15 @@ function parseStudents() {
       month
     });
   }
+
+  // 偵測重複名字，為重複的學生名字加上科目後綴
+  const nameCount = {};
+  allStudents.forEach(s => { nameCount[s.name] = (nameCount[s.name] || 0) + 1; });
+  allStudents.forEach(s => {
+    if (nameCount[s.name] > 1 && s.subject) {
+      s.name = s.name + '（' + s.subject + '）';
+    }
+  });
 
   if (allStudents.length === 0) { showToast('沒有找到學生資料'); return; }
 
@@ -580,7 +592,7 @@ function buildSingleMessage(idx) {
   const title = document.getElementById('titleSelect').value;
   const greeting = document.getElementById('greetingSelect').value;
 
-  let msg = `${title} ${greeting}，以下和您確認${s.month}月的上課時數：\n`;
+  let msg = `${title} ${greeting}，以下和您碼認${s.month}月的上課時數：\n`;
   s.entries.forEach(e => { msg += `${e.date}：${formatNum(e.hours)}hr\n`; });
   msg += `\n共${formatNum(s.totalHours)}小時 x ${s.rate}元 = ${s.totalFee}元，謝謝${title}`;
 
@@ -594,7 +606,7 @@ function buildFamilyMessage(studentIndices) {
   const first = allStudents[studentIndices[0]];
   if (!first) return null;
 
-  let msg = `${title} ${greeting}，以下和您確認${first.month}月的上課時數：\n`;
+  let msg = `${title} ${greeting}，以下和您碼認${first.month}月的上課時數：\n`;
   let grandTotal = 0, totalCount = 0, totalHrs = 0;
   const names = [];
 
@@ -629,7 +641,7 @@ function generateSingle(idx) {
 
 function generateFamily(fi) {
   const group = families[fi];
-  if (!group || group.length === 0) { showToast('此群組氒有學生'); return; }
+  if (!group || group.length === 0) { showToast('此群組沒有學生'); return; }
 
   let result;
   if (group.length === 1) {
