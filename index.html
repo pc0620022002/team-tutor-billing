@@ -205,7 +205,44 @@ function setupFirebaseSync() {
     }
   });
 
-  // Listen for remote changes
+  // Initial pull: fetch ALL current data from Firebase on page load
+  // This ensures new devices / incognito get the latest settings
+  roomRef.once('value', snap => {
+    const remote = snap.val();
+    if (!remote) return;
+    _skipSync = true;
+    try {
+      // Sync groups and personal flags
+      [GROUP_KEY, PERSONAL_FLAG_KEY].forEach(key => {
+        if (remote[key] !== undefined && remote[key] !== null) {
+          localStorage.setItem(key, JSON.stringify(remote[key]));
+        }
+      });
+
+      // Sync student cache: if this device has no students but Firebase does,
+      // restore from Firebase so groups can render without uploading Excel
+      if (remote[STUDENTS_CACHE_KEY] && allStudents.length === 0) {
+        const remoteStudents = remote[STUDENTS_CACHE_KEY];
+        if (Array.isArray(remoteStudents) && remoteStudents.length > 0) {
+          allStudents = remoteStudents;
+          localStorage.setItem(STUDENTS_CACHE_KEY, JSON.stringify(remoteStudents));
+          settingsDiv.style.display = 'block';
+          document.getElementById('studentCards').style.display = 'block';
+          document.getElementById('groupingSection').style.display = 'block';
+        }
+      }
+
+      // Re-render UI with the latest data
+      if (allStudents.length > 0) {
+        loadFamilies();
+        renderStudentCards();
+        renderGroupingUI();
+      }
+    } catch {}
+    _skipSync = false;
+  });
+
+  // Listen for subsequent remote changes (real-time sync)
   roomRef.on('child_changed', snap => {
     _skipSync = true;
     try {
@@ -349,8 +386,9 @@ function parseStudents() {
 
   if (allStudents.length === 0) { showToast('沒有找到學生資料'); return; }
 
-  // Cache allStudents to localStorage
+  // Cache allStudents to localStorage and sync to Firebase
   localStorage.setItem(STUDENTS_CACHE_KEY, JSON.stringify(allStudents));
+  if (!_skipSync) pushToFirebase(STUDENTS_CACHE_KEY, allStudents);
 
   document.getElementById('studentCards').style.display = 'block';
   document.getElementById('groupingSection').style.display = 'block';
@@ -637,7 +675,7 @@ function deleteCard(key) {
 
 function toggleAll() {
   allExpanded = !allExpanded;
-  document.querySelectorAll('.msg-body').forEach(b => { allExpanded? b.classList.add('open') : b.classList.remove('open'); });
+  document.querySelectorAll('.msg-body').forEach(b => { allExpanded ? b.classList.add('open') : b.classList.remove('open'); });
   document.getElementById('expandToggle').textContent = allExpanded ? '全部收起' : '全部展開';
 }
 
@@ -669,9 +707,10 @@ function showToast(msg) {
 }
 
 // ===== Init =====
-setupFirebaseSync();
 
-// Restore cached students on page load
+// Restore cached students first, then setup Firebase sync.
+// Firebase initial pull (once) will overwrite localStorage with latest data
+// and re-render UI after the pull completes.
 (function restoreCachedStudents() {
   try {
     const cached = localStorage.getItem(STUDENTS_CACHE_KEY);
@@ -689,6 +728,10 @@ setupFirebaseSync();
     }
   } catch {}
 })();
+
+// Setup Firebase sync AFTER restoring cache, so the initial pull's
+// re-render can use allStudents from cache
+setupFirebaseSync();
 </script>
 </body>
 </html>
