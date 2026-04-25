@@ -13,50 +13,30 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft Jh
 .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
 .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 24px; font-size: 0.9em; }
-
-/* Sync indicator */
 .sync-bar { background: white; border-radius: 10px; padding: 10px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; font-size: 0.85em; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
 .sync-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 .sync-dot.green { background: #27ae60; }
 .sync-dot.gray { background: #bbb; }
 .sync-dot.red { background: #e74c3c; }
-
-/* Upload area */
 .upload-area { border: 2px dashed #bdc3c7; border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.3s; background: white; margin-bottom: 20px; }
 .upload-area:hover, .upload-area.dragover { border-color: #3498db; background: #ebf5fb; }
 .upload-area p { font-size: 1.1em; color: #7f8c8d; }
 .upload-area .icon { font-size: 2.5em; margin-bottom: 10px; }
 .upload-area input { display: none; }
-
-/* Settings */
 .settings { background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 .settings h3 { font-size: 1em; margin-bottom: 12px; color: #2c3e50; }
 .setting-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
 .setting-row label { font-size: 0.9em; min-width: 80px; color: #555; }
 .setting-row select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9em; }
-
-/* File info */
 .file-info { background: #d5f5e3; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; display: none; font-size: 0.9em; color: #1e8449; }
-
-/* Grouping section */
 .grouping-section { background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: none; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 .grouping-section h3 { font-size: 1em; margin-bottom: 4px; color: #2c3e50; }
 .grouping-hint { font-size: 0.8em; color: #999; margin-bottom: 12px; }
-
-.student-chip {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 4px 10px; border-radius: 16px; border: 2px solid #85c1e9;
-  font-size: 0.85em; cursor: grab; background: white; user-select: none; margin: 2px;
-  transition: box-shadow 0.2s;
-}
+.student-chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 16px; border: 2px solid #85c1e9; font-size: 0.85em; cursor: grab; background: white; user-select: none; margin: 2px; transition: box-shadow 0.2s; }
 .student-chip:active { cursor: grabbing; }
 .student-chip.dragging { opacity: 0.4; }
 .student-chip .personal-badge { font-size: 0.7em; background: #f39c12; color: white; border-radius: 8px; padding: 1px 5px; margin-left: 2px; }
-
-.group-lane {
-  border: 2px dashed #ddd; border-radius: 10px; padding: 10px; margin-bottom: 10px; min-height: 50px;
-  transition: background 0.2s, border-color 0.2s;
-}
+.group-lane { border: 2px dashed #ddd; border-radius: 10px; padding: 10px; margin-bottom: 10px; min-height: 50px; transition: background 0.2s, border-color 0.2s; }
 .group-lane.dragover { border-color: #3498db; background: #ebf5fb; }
 .lane-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .lane-label { font-size: 0.85em; font-weight: 600; color: #555; }
@@ -67,24 +47,18 @@ h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
 .btn-generate-one:hover { background: #219a52 !important; }
 .lane-remove { color: #e74c3c !important; border-color: #e74c3c !important; }
 .lane-remove:hover { background: #fde8e8 !important; }
-
 .ungrouped-lane { border: 2px dashed #f39c12; border-radius: 10px; padding: 10px; min-height: 50px; margin-top: 10px; }
 .ungrouped-lane.dragover { border-color: #e67e22; background: #fef5e7; }
 .ungrouped-label { font-size: 0.85em; font-weight: 600; color: #f39c12; margin-bottom: 6px; }
-
 .grouping-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 .grouping-actions button { padding: 6px 14px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; font-size: 0.85em; }
 .grouping-actions button:hover { background: #f0f0f0; }
-
-/* Student cards (personal checkbox area) */
 .student-cards { display: none; background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 .student-cards h3 { font-size: 1em; margin-bottom: 12px; color: #2c3e50; }
 .student-card-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
 .student-card-row:last-child { border-bottom: none; }
 .student-card-row .sname { flex: 1; font-weight: 500; }
 .student-card-row .personal-label { font-size: 0.82em; color: #888; display: flex; align-items: center; gap: 4px; }
-
-/* Results */
 .results { display: none; }
 .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
 .results-header h2 { font-size: 1.2em; color: #2c3e50; }
@@ -94,8 +68,6 @@ h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
 .btn-success { background: #27ae60; color: white; }
 .btn-success:hover { background: #219a52; }
 .student-count { color: #7f8c8d; font-size: 0.9em; margin-bottom: 16px; }
-
-/* Message cards */
 .msg-card { background: white; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: hidden; }
 .msg-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #f8f9fa; border-bottom: 1px solid #eee; cursor: pointer; flex-wrap: wrap; gap: 4px; }
 .msg-header .name { font-weight: 600; font-size: 1em; }
@@ -111,36 +83,25 @@ h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
 .delete-btn { margin-top: 10px; margin-left: 8px; padding: 6px 14px; background: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85em; }
 .delete-btn:hover { background: #c0392b; }
 .expand-toggle { color: #3498db; cursor: pointer; font-size: 0.85em; text-decoration: underline; }
-
-/* Toast */
 .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2c3e50; color: white; padding: 10px 24px; border-radius: 8px; font-size: 0.9em; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
 .toast.show { opacity: 1; }
-
-@media (max-width: 600px) {
-  .container { padding: 12px; }
-  h1 { font-size: 1.3em; }
-  .setting-row { flex-direction: column; gap: 4px; }
-}
+@media (max-width: 600px) { .container { padding: 12px; } h1 { font-size: 1.3em; } .setting-row { flex-direction: column; gap: 4px; } }
 </style>
 </head>
 <body>
 <div class="container">
   <h1>團隊家教請款訊息產生器</h1>
   <p class="subtitle">上傳班表 Excel，自動產出每位學生的請款訊息</p>
-
   <div class="sync-bar" id="syncIndicator">
     <span class="sync-dot gray"></span>
     <span>正在連線...</span>
   </div>
-
   <div class="upload-area" id="uploadArea">
     <div class="icon">📂</div>
     <p>點擊或拖曳 Excel 檔案到這裡</p>
     <input type="file" id="fileInput" accept=".xlsx,.xls">
   </div>
-
   <div class="file-info" id="fileInfo"></div>
-
   <div class="settings" id="settings">
     <h3>設定</h3>
     <div class="setting-row">
@@ -161,14 +122,10 @@ h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
       </select>
     </div>
   </div>
-
-  <!-- Student cards with personal checkbox -->
   <div class="student-cards" id="studentCards">
     <h3>學生清單</h3>
     <div id="studentCardList"></div>
   </div>
-
-  <!-- Grouping section -->
   <div class="grouping-section" id="groupingSection">
     <h3>訊息分組（家庭群組）</h3>
     <p class="grouping-hint">拖曳學生到家庭群組，同一群組會產出合併帳單。未分組的學生各自獨立產出。</p>
@@ -182,7 +139,6 @@ h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
       <button class="btn-generate-one" onclick="generateAll()">🚀 全部產出</button>
     </div>
   </div>
-
   <div class="results" id="results">
     <div class="results-header">
       <h2>請款訊息</h2>
@@ -196,9 +152,7 @@ h1 { text-align: center; font-size: 1.6em; margin: 20px 0 8px; color: #2c3e50; }
     <div id="msgList"></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
 // ===== Firebase Setup =====
 const firebaseConfig = {
@@ -210,7 +164,6 @@ const firebaseConfig = {
   messagingSenderId: "746890920494",
   appId: "1:746890920494:web:8a9f3c7e2d1b0a4f5e6d7c"
 };
-
 firebase.initializeApp(firebaseConfig);
 const ROOM = 'TEAM_SYNC';
 const db = firebase.database();
@@ -219,11 +172,22 @@ const roomRef = db.ref('rooms/' + ROOM);
 // Storage keys
 const GROUP_KEY = 'teamGroups_v1';
 const PERSONAL_FLAG_KEY = 'teamPersonalFlag_v1';
+const STUDENTS_CACHE_KEY = 'teamStudents_cache';
 
 let _skipSync = false;
 
 function pushToFirebase(key, data) {
-  try { roomRef.child(key).set(data); } catch {}
+  roomRef.child(key).set(data, function(error) {
+    if (error) {
+      console.error('Firebase write failed for key ' + key + ':', error);
+      var indicator = document.getElementById('syncIndicator');
+      var dot = indicator.querySelector('.sync-dot');
+      var label = indicator.querySelector('span:last-child');
+      dot.className = 'sync-dot red';
+      label.textContent = '同步寫入失敗';
+      showToast('同步失敗，設定僅存在本機');
+    }
+  });
 }
 
 function setupFirebaseSync() {
@@ -250,8 +214,18 @@ function setupFirebaseSync() {
       if (val !== null && val !== undefined) {
         localStorage.setItem(key, JSON.stringify(val));
       }
-      if (key === GROUP_KEY) { loadFamilies(); renderGroupingUI(); }
-      if (key === PERSONAL_FLAG_KEY) { renderStudentCards(); renderGroupingUI(); }
+      if (key === GROUP_KEY) {
+        if (allStudents.length > 0) {
+          loadFamilies();
+          renderGroupingUI();
+        }
+      }
+      if (key === PERSONAL_FLAG_KEY) {
+        if (allStudents.length > 0) {
+          renderStudentCards();
+          renderGroupingUI();
+        }
+      }
     } catch {}
     _skipSync = false;
   });
@@ -265,10 +239,9 @@ const settingsDiv = document.getElementById('settings');
 const resultsDiv = document.getElementById('results');
 const msgList = document.getElementById('msgList');
 const studentCountEl = document.getElementById('studentCount');
-
 let parsedData = null;
-let allStudents = []; // {name, rate, entries, totalHours, totalFee, count}
-let families = []; // [[idx, idx], [idx]]
+let allStudents = [];
+let families = [];
 let allExpanded = false;
 
 // ===== Upload =====
@@ -281,14 +254,13 @@ uploadArea.addEventListener('drop', (e) => {
 });
 fileInput.addEventListener('change', (e) => { if (e.target.files.length) handleFile(e.target.files[0]); });
 
-document.getElementById('titleSelect').addEventListener('change', () => { /* regenerate on demand */ });
-document.getElementById('greetingSelect').addEventListener('change', () => { /* regenerate on demand */ });
+document.getElementById('titleSelect').addEventListener('change', () => { });
+document.getElementById('greetingSelect').addEventListener('change', () => { });
 
 function handleFile(file) {
   if (!file.name.match(/\.xlsx?$/i)) { showToast('請上傳 .xlsx 或 .xls 檔案'); return; }
   fileInfo.style.display = 'block';
   fileInfo.textContent = '已載入：' + file.name;
-
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
@@ -297,9 +269,7 @@ function handleFile(file) {
       parsedData = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null, raw: true });
       settingsDiv.style.display = 'block';
       parseStudents();
-    } catch (err) {
-      showToast('檔案讀取失敗：' + err.message);
-    }
+    } catch (err) { showToast('檔案讀取失敗：' + err.message); }
   };
   reader.readAsArrayBuffer(file);
 }
@@ -307,7 +277,6 @@ function handleFile(file) {
 function parseStudents() {
   if (!parsedData) return;
   const data = parsedData;
-
   let dateHeaderRow = -1;
   for (let r = 0; r < Math.min(data.length, 15); r++) {
     if (data[r] && data[r][0] && String(data[r][0]).trim() === '日期') { dateHeaderRow = r; break; }
@@ -323,7 +292,8 @@ function parseStudents() {
   if (rateRow === -1) rateRow = 5;
 
   const studentRow = 1;
-  const subjectRow = 3; // 第4列（0-indexed = 3）為科目。如有同名學生，會在名字後加上科目以區分。
+  const subjectRow = 3;
+
   let month = '';
   for (let r = dateStartRow; r < data.length; r++) {
     const cell = data[r] ? data[r][0] : null;
@@ -340,16 +310,13 @@ function parseStudents() {
 
   allStudents = [];
   const totalCols = data[studentRow] ? data[studentRow].length : 0;
-
   for (let col = 3; col < totalCols; col++) {
     const studentName = data[studentRow] ? data[studentRow][col] : null;
     const rate = data[rateRow] ? data[rateRow][col] : null;
     if (!studentName || !rate || isNaN(Number(rate))) continue;
-
     const cleanName = String(studentName).replace(/\n/g, '、');
     const subject = data[subjectRow] ? String(data[subjectRow][col] || '').trim() : '';
     const numRate = Number(rate);
-
     let entries = [];
     for (let r = dateStartRow; r < dateEndRow; r++) {
       const val = data[r] ? data[r][col] : null;
@@ -361,25 +328,17 @@ function parseStudents() {
       if (!d) continue;
       entries.push({ date: (d.getMonth() + 1) + '/' + d.getDate(), hours: numVal, dateObj: d });
     }
-
     if (entries.length === 0) continue;
-
     const totalHours = entries.reduce((s, e) => s + e.hours, 0);
     const totalFee = totalHours * numRate;
-
     allStudents.push({
-      name: cleanName,
-      subject: subject,
-      rate: numRate,
+      name: cleanName, subject: subject, rate: numRate,
       entries: entries.sort((a, b) => a.dateObj - b.dateObj),
-      totalHours,
-      totalFee: Math.round(totalFee),
-      count: entries.length,
-      month
+      totalHours, totalFee: Math.round(totalFee), count: entries.length, month
     });
   }
 
-  // 偵測重複名字，為重複的學生名字加上科目後綴
+  // Duplicate name detection
   const nameCount = {};
   allStudents.forEach(s => { nameCount[s.name] = (nameCount[s.name] || 0) + 1; });
   allStudents.forEach(s => {
@@ -390,7 +349,9 @@ function parseStudents() {
 
   if (allStudents.length === 0) { showToast('沒有找到學生資料'); return; }
 
-  // Show student cards and grouping
+  // Cache allStudents to localStorage
+  localStorage.setItem(STUDENTS_CACHE_KEY, JSON.stringify(allStudents));
+
   document.getElementById('studentCards').style.display = 'block';
   document.getElementById('groupingSection').style.display = 'block';
 
@@ -412,6 +373,7 @@ function savePersonalFlag(name, checked) {
   localStorage.setItem(PERSONAL_FLAG_KEY, JSON.stringify(flags));
   if (!_skipSync) pushToFirebase(PERSONAL_FLAG_KEY, flags);
   renderGroupingUI();
+  showToast('已更新標記');
 }
 
 function renderStudentCards() {
@@ -435,6 +397,7 @@ function saveFamilies() {
   const toSave = families.map(group => group.map(idx => allStudents[idx]?.name).filter(Boolean));
   localStorage.setItem(GROUP_KEY, JSON.stringify(toSave));
   if (!_skipSync) pushToFirebase(GROUP_KEY, toSave);
+  showToast('群組已儲存');
 }
 
 function loadFamilies() {
@@ -456,17 +419,14 @@ function loadFamilies() {
 function getUngrouped() {
   const grouped = new Set(families.flat());
   const ungrouped = allStudents.map((_, i) => i).filter(i => !grouped.has(i));
-  // Sort: English names alphabetically, Chinese names by stroke count (locale zh-Hant-TW with pinyin fallback)
   ungrouped.sort((a, b) => {
     const na = allStudents[a].name;
     const nb = allStudents[b].name;
     const isEngA = /^[A-Za-z]/.test(na);
     const isEngB = /^[A-Za-z]/.test(nb);
-    // English names come first, then Chinese
     if (isEngA && !isEngB) return -1;
     if (!isEngA && isEngB) return 1;
     if (isEngA && isEngB) return na.localeCompare(nb, 'en');
-    // Chinese: sort by stroke count using zh-Hant locale with stroke collation
     return na.localeCompare(nb, 'zh-Hant-TW', { collation: 'stroke' });
   });
   return ungrouped;
@@ -474,17 +434,15 @@ function getUngrouped() {
 
 function renderGroupingUI() {
   if (allStudents.length === 0) return;
-
   const flags = loadPersonalFlags();
   const lanesDiv = document.getElementById('familyLanes');
   lanesDiv.innerHTML = '';
-
   families.forEach((group, fi) => {
     lanesDiv.innerHTML += `
       <div class="group-lane" id="family-${fi}"
-           ondragover="event.preventDefault(); this.classList.add('dragover')"
-           ondragleave="this.classList.remove('dragover')"
-           ondrop="dropOnFamily(event, ${fi})">
+        ondragover="event.preventDefault(); this.classList.add('dragover')"
+        ondragleave="this.classList.remove('dragover')"
+        ondrop="dropOnFamily(event, ${fi})">
         <div class="lane-header">
           <span class="lane-label">家庭 ${fi + 1}</span>
           <div class="lane-actions">
@@ -495,16 +453,14 @@ function renderGroupingUI() {
         <div class="lane-students">${group.map(idx => makeChip(idx, flags)).join('')}</div>
       </div>`;
   });
-
   const ungrouped = getUngrouped();
   const ungroupedDiv = document.getElementById('ungroupedStudents');
   ungroupedDiv.innerHTML = ungrouped.map(idx =>
     `<div style="display:inline-flex;align-items:center;gap:4px;margin:2px 0;">` +
-      makeChip(idx, flags) +
-      `<button class="btn-generate-one" onclick="generateSingle(${idx})" style="padding:3px 8px;font-size:0.75em;">產出</button>` +
+    makeChip(idx, flags) +
+    `<button class="btn-generate-one" onclick="generateSingle(${idx})" style="padding:3px 8px;font-size:0.75em;">產出</button>` +
     `</div>`
   ).join('');
-
   const lane = document.getElementById('ungroupedLane');
   lane.ondragover = e => { e.preventDefault(); lane.classList.add('dragover'); };
   lane.ondragleave = () => lane.classList.remove('dragover');
@@ -524,66 +480,35 @@ function makeChip(idx, flags) {
 }
 
 let draggedIdx = null;
-
 function dragStart(e, idx) {
   draggedIdx = idx;
   e.target.closest('.student-chip').classList.add('dragging');
   e.dataTransfer.effectAllowed = 'move';
   e.dataTransfer.setData('text/plain', idx);
 }
-
 function dragEnd(e) {
   e.target.closest('.student-chip').classList.remove('dragging');
   document.querySelectorAll('.group-lane').forEach(l => l.classList.remove('dragover'));
 }
-
 function dropOnFamily(e, familyIdx) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('dragover');
+  e.preventDefault(); e.currentTarget.classList.remove('dragover');
   if (draggedIdx === null) return;
-
-  families.forEach(group => {
-    const pos = group.indexOf(draggedIdx);
-    if (pos >= 0) group.splice(pos, 1);
-  });
+  families.forEach(group => { const pos = group.indexOf(draggedIdx); if (pos >= 0) group.splice(pos, 1); });
   families = families.filter(g => g.length > 0);
-
   if (familyIdx < families.length) {
     if (!families[familyIdx].includes(draggedIdx)) families[familyIdx].push(draggedIdx);
-  } else {
-    families.push([draggedIdx]);
-  }
-
-  saveFamilies();
-  renderGroupingUI();
-  draggedIdx = null;
+  } else { families.push([draggedIdx]); }
+  saveFamilies(); renderGroupingUI(); draggedIdx = null;
 }
-
 function dropOnUngrouped(e) {
-  e.preventDefault();
-  document.getElementById('ungroupedLane').classList.remove('dragover');
+  e.preventDefault(); document.getElementById('ungroupedLane').classList.remove('dragover');
   if (draggedIdx === null) return;
-  families.forEach(group => {
-    const pos = group.indexOf(draggedIdx);
-    if (pos >= 0) group.splice(pos, 1);
-  });
+  families.forEach(group => { const pos = group.indexOf(draggedIdx); if (pos >= 0) group.splice(pos, 1); });
   families = families.filter(g => g.length > 0);
-  saveFamilies();
-  renderGroupingUI();
-  draggedIdx = null;
+  saveFamilies(); renderGroupingUI(); draggedIdx = null;
 }
-
-function addFamilyLane() {
-  families.push([]);
-  saveFamilies();
-  renderGroupingUI();
-}
-
-function removeFamilyLane(fi) {
-  families.splice(fi, 1);
-  saveFamilies();
-  renderGroupingUI();
-}
+function addFamilyLane() { families.push([]); saveFamilies(); renderGroupingUI(); }
+function removeFamilyLane(fi) { families.splice(fi, 1); saveFamilies(); renderGroupingUI(); }
 
 // ===== Message Generation =====
 function buildSingleMessage(idx) {
@@ -591,11 +516,9 @@ function buildSingleMessage(idx) {
   if (!s) return null;
   const title = document.getElementById('titleSelect').value;
   const greeting = document.getElementById('greetingSelect').value;
-
   let msg = `${title} ${greeting}，以下和您確認${s.month}月的上課時數：\n`;
   s.entries.forEach(e => { msg += `${e.date}：${formatNum(e.hours)}hr\n`; });
   msg += `\n共${formatNum(s.totalHours)}小時 x ${s.rate}元 = ${s.totalFee}元，謝謝${title}`;
-
   return { name: s.name, msg, totalFee: s.totalFee, totalHours: s.totalHours, count: s.count, isFamily: false };
 }
 
@@ -622,9 +545,7 @@ function buildFamilyMessage(studentIndices) {
     totalHrs += s.totalHours;
     totalCount += s.count;
   });
-
   msg += `\n合計：${Math.round(grandTotal)}元，謝謝${title}`;
-
   return { name: names.join(' + '), msg, totalFee: Math.round(grandTotal), totalHours: totalHrs, count: totalCount, isFamily: true };
 }
 
@@ -642,13 +563,9 @@ function generateSingle(idx) {
 function generateFamily(fi) {
   const group = families[fi];
   if (!group || group.length === 0) { showToast('此群組沒有學生'); return; }
-
   let result;
-  if (group.length === 1) {
-    result = buildSingleMessage(group[0]);
-  } else {
-    result = buildFamilyMessage(group);
-  }
+  if (group.length === 1) result = buildSingleMessage(group[0]);
+  else result = buildFamilyMessage(group);
   if (!result) return;
   const key = 'f-' + fi;
   window._generatedMessages[key] = result;
@@ -659,7 +576,6 @@ function generateFamily(fi) {
 function generateAll() {
   window._generatedMessages = {};
   let count = 0;
-
   families.forEach((group, fi) => {
     if (group.length === 0) return;
     let result;
@@ -667,29 +583,21 @@ function generateAll() {
     else result = buildFamilyMessage(group);
     if (result) { window._generatedMessages['f-' + fi] = result; count++; }
   });
-
   getUngrouped().forEach(idx => {
     const result = buildSingleMessage(idx);
     if (result) { window._generatedMessages['s-' + idx] = result; count++; }
   });
-
-  if (count > 0) {
-    renderAllMessages();
-    showToast('已產出 ' + count + ' 則請款訊息');
-  }
+  if (count > 0) { renderAllMessages(); showToast('已產出 ' + count + ' 則請款訊息'); }
 }
 
 function renderAllMessages() {
   const entries = Object.entries(window._generatedMessages);
   const flags = loadPersonalFlags();
-
   msgList.innerHTML = entries.map(([key, m]) => {
     const familyTag = m.isFamily ? '<span class="family-tag">家庭</span>' : '';
-    // Check if any name in this message has personal flag
     const msgNames = m.name.includes(' + ') ? m.name.split(' + ').map(n => n.trim()) : [m.name];
     const hasPersonal = msgNames.some(n => flags[n]);
     const personalTag = hasPersonal ? '<span class="personal-tag">個人也有</span>' : '';
-
     return `<div class="msg-card" id="result-card-${key}">
       <div class="msg-header" onclick="this.nextElementSibling.classList.toggle('open')">
         <span class="name">${escapeHtml(m.name)} ${familyTag}${personalTag}</span>
@@ -704,7 +612,6 @@ function renderAllMessages() {
       </div>
     </div>`;
   }).join('');
-
   resultsDiv.style.display = entries.length > 0 ? 'block' : 'none';
   studentCountEl.textContent = `已產出 ${entries.length} 則`;
   if (entries.length > 0) resultsDiv.scrollIntoView({ behavior: 'smooth' });
@@ -730,9 +637,7 @@ function deleteCard(key) {
 
 function toggleAll() {
   allExpanded = !allExpanded;
-  document.querySelectorAll('.msg-body').forEach(b => {
-    allExpanded ? b.classList.add('open') : b.classList.remove('open');
-  });
+  document.querySelectorAll('.msg-body').forEach(b => { allExpanded? b.classList.add('open') : b.classList.remove('open'); });
   document.getElementById('expandToggle').textContent = allExpanded ? '全部收起' : '全部展開';
 }
 
@@ -747,27 +652,43 @@ function copyAll() {
 function parseDate(val) {
   if (!val) return null;
   if (val instanceof Date) return val;
-  if (typeof val === 'number') {
-    const d = new Date((val - 25569) * 86400000);
-    if (!isNaN(d.getTime())) return d;
-  }
+  if (typeof val === 'number') { const d = new Date((val - 25569) * 86400000); if (!isNaN(d.getTime())) return d; }
   const s = String(val).trim();
   const d = new Date(s);
   if (!isNaN(d.getTime())) return d;
   return null;
 }
-
 function formatNum(n) { return Number.isInteger(n) ? String(n) : String(parseFloat(n.toFixed(2))); }
 function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function escapeAttr(s) { return s.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
+  t.textContent = msg;
+  t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2000);
 }
 
 // ===== Init =====
 setupFirebaseSync();
+
+// Restore cached students on page load
+(function restoreCachedStudents() {
+  try {
+    const cached = localStorage.getItem(STUDENTS_CACHE_KEY);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        allStudents = parsed;
+        settingsDiv.style.display = 'block';
+        document.getElementById('studentCards').style.display = 'block';
+        document.getElementById('groupingSection').style.display = 'block';
+        loadFamilies();
+        renderStudentCards();
+        renderGroupingUI();
+      }
+    }
+  } catch {}
+})();
 </script>
 </body>
 </html>
